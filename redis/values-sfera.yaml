@@ -1,0 +1,35 @@
+image:
+  repository: docker.io/bitnami/redis
+  tag: 7.2.1-debian-11-r26
+replicas: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+persistence:
+  storageClassName: local-path
+  size: 1Gi
+
+livenessProbe:
+  tcpSocket:
+    port: redis
+  initialDelaySeconds: 45
+readinessProbe:
+  tcpSocket:
+    port: redis
+  initialDelaySeconds: 45
+
+service:
+  type: ClusterIP
+  portName: redis
+  port: 6379  
+  targetPort: 6379
+
+extraVolumes: []
+
+extraVolumeMounts: []
+
+env:
+  REDIS_PASSWORD: 
+
+# helm upgrade --install --atomic redis ./ci/helm/redis --values=./ci/helm/redis/values-uat.yaml --timeout 60s -n u200001744-caas --set env.REDIS_PASSWORD=<ваш_пас> --dry-run
