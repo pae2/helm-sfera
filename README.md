@@ -1,1 +1,1 @@
-# redis-helm
+# helm charts infara sfera
